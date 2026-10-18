@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Xiaomi Mi 9 (cepheus) — AviumUI 16.2.2 / Android 16 (lineage-23.2)
+
+    Usage:
+        mkdir -p .repo/local_manifests
+        cp cepheus.xml .repo/local_manifests/
+        repo sync -c -j8 --force-sync --no-clone-bundle --no-tags
+-->
+<manifest>
+  <!-- Device trees -->
+  <project path="device/xiaomi/cepheus"
+           name="OxygenNG/android_device_xiaomi_cepheus"
+           remote="github"
+           revision="oxygenng/cepheus-a16" />
+
+  <project path="device/xiaomi/sm8150-common"
+           name="LineageOS/android_device_xiaomi_sm8150-common"
+           remote="github"
+           revision="lineage-23.2" />
+
+  <!-- Hardware support -->
+  <project path="hardware/xiaomi"
+           name="LineageOS/android_hardware_xiaomi"
+           remote="github"
+           revision="lineage-23.2" />
+
+  <!-- Kernel: JoK3rLeE 17.0-stable (4.14.357-openela) with BPF 5.10 backport -->
+  <project path="kernel/xiaomi/sm8150"
+           name="OxygenNG/kernel_xiaomi_sm8150"
+           remote="github"
+           revision="oxygenng/cepheus-a16" />
+
+  <!-- Proprietary blobs -->
+  <project path="vendor/xiaomi/cepheus"
+           name="OxygenNG/proprietary_vendor_xiaomi_cepheus"
+           remote="github"
+           revision="oxygenng/cepheus-a16"
+           clone-depth="1" />
+
+  <project path="vendor/xiaomi/sm8150-common"
+           name="OxygenNG/proprietary_vendor_xiaomi_sm8150-common"
+           remote="github"
+           revision="oxygenng/cepheus-a16"
+           clone-depth="1" />
+</manifest>
