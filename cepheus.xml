@@ -25,11 +25,15 @@
            remote="github"
            revision="lineage-23.2" />
 
-  <!-- Kernel: JoK3rLeE 17.0-stable (4.14.357-openela) with BPF 5.10 backport -->
+  <!--
+    Kernel: JoK3rLeE 17.0-stable (4.14.357-openela), which carries the
+    BPF 5.10 backport that Android 16 requires. Used unmodified — the
+    tree we built with is byte-identical to this branch.
+  -->
   <project path="kernel/xiaomi/sm8150"
-           name="OxygenNG/kernel_xiaomi_sm8150"
+           name="JoK3rLeE/android_kernel_xiaomi_sm8150"
            remote="github"
-           revision="oxygenng/cepheus-a16" />
+           revision="17.0-stable" />
 
   <!-- Proprietary blobs -->
   <project path="vendor/xiaomi/cepheus"
