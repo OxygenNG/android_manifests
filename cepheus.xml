@@ -5,7 +5,7 @@
     Usage:
         mkdir -p .repo/local_manifests
         cp cepheus.xml .repo/local_manifests/
-        repo sync -c -j8 --force-sync --no-clone-bundle --no-tags
+        repo sync -c -j8 (see README.md for the full command)
 -->
 <manifest>
   <!-- Device trees -->
