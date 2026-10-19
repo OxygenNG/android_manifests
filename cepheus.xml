@@ -1,50 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Xiaomi Mi 9 (cepheus) — AviumUI 16.2.2 / Android 16 (lineage-23.2)
+    Xiaomi Mi 9 (cepheus) — uwuAOSP 17.0 (Android 17)
+
+    Device tree and vendor blobs are OxygenNG forks of the PixelOS trees
+    with the uwuAOSP port applied (see each repo's commit message).
 
     Usage:
         mkdir -p .repo/local_manifests
         cp cepheus.xml .repo/local_manifests/
-        repo sync -c -j8 (see README.md for the full command)
+        repo sync -c -j8
+
+    Note: uwuAOSP's built-in "github" remote uses fetch="..", resolving to
+    https://github.com/uwuAOSP/. Projects in other orgs therefore need an
+    absolute-URL remote, as done below.
 -->
 <manifest>
-  <!-- Device trees -->
+  <remote name="oxygenng" fetch="https://github.com/OxygenNG" />
+  <remote name="lineagegit" fetch="https://github.com/LineageOS" />
+  <remote name="jokerlee" fetch="https://github.com/JoK3rLeE" />
+
+  <!-- Device tree: PixelOS sixteen + uwuAOSP port -->
   <project path="device/xiaomi/cepheus"
-           name="OxygenNG/android_device_xiaomi_cepheus"
-           remote="github"
-           revision="oxygenng/cepheus-a16" />
-
-  <project path="device/xiaomi/sm8150-common"
-           name="LineageOS/android_device_xiaomi_sm8150-common"
-           remote="github"
-           revision="lineage-23.2" />
-
-  <!-- Hardware support -->
-  <project path="hardware/xiaomi"
-           name="LineageOS/android_hardware_xiaomi"
-           remote="github"
-           revision="lineage-23.2" />
-
-  <!--
-    Kernel: JoK3rLeE 17.0-stable (4.14.357-openela), which carries the
-    BPF 5.10 backport that Android 16 requires. Used unmodified — the
-    tree we built with is byte-identical to this branch.
-  -->
-  <project path="kernel/xiaomi/sm8150"
-           name="JoK3rLeE/android_kernel_xiaomi_sm8150"
-           remote="github"
-           revision="17.0-stable" />
-
-  <!-- Proprietary blobs -->
-  <project path="vendor/xiaomi/cepheus"
-           name="OxygenNG/proprietary_vendor_xiaomi_cepheus"
-           remote="github"
-           revision="oxygenng/cepheus-a16"
+           name="android_device_xiaomi_cepheus-uwu"
+           remote="oxygenng"
+           revision="oxygenng/uwu-a17"
            clone-depth="1" />
 
-  <project path="vendor/xiaomi/sm8150-common"
-           name="OxygenNG/proprietary_vendor_xiaomi_sm8150-common"
-           remote="github"
-           revision="oxygenng/cepheus-a16"
+  <!-- hardware/xiaomi is not in uwuAOSP's manifest, cepheus needs it -->
+  <project path="hardware/xiaomi"
+           name="android_hardware_xiaomi"
+           remote="lineagegit"
+           revision="lineage-24.0"
+           clone-depth="1" />
+
+  <!-- Kernel: JoK3rLeE 17.0-stable (BPF 5.10 backport, verified booting) -->
+  <project path="kernel/xiaomi/sm8150"
+           name="android_kernel_xiaomi_sm8150"
+           remote="jokerlee"
+           revision="17.0-stable"
+           clone-depth="1" />
+
+  <!-- Vendor blobs: PixelOS fifteen + audioroute-v34 fix + ssr_setup -->
+  <project path="vendor/xiaomi/cepheus"
+           name="vendor_xiaomi_cepheus"
+           remote="oxygenng"
+           revision="oxygenng/uwu-a17"
            clone-depth="1" />
 </manifest>
