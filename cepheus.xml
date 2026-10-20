@@ -16,6 +16,7 @@
   <remote name="oxygenng" fetch="https://github.com/OxygenNG" />
   <remote name="lineagegit" fetch="https://github.com/LineageOS" />
   <remote name="jokerlee" fetch="https://github.com/JoK3rLeE" />
+  <remote name="oxygenng-kernel" fetch="https://github.com/OxygenNG" />
 
   <!-- Device tree: PixelOS sixteen + uwuAOSP port -->
   <project path="device/xiaomi/cepheus"
@@ -34,8 +35,8 @@
   <!-- Kernel: JoK3rLeE 17.0-stable (BPF 5.10 backport, verified booting) -->
   <project path="kernel/xiaomi/sm8150"
            name="android_kernel_xiaomi_sm8150"
-           remote="jokerlee"
-           revision="17.0-stable"
+           remote="oxygenng-kernel"
+           revision="oxygenng/uwu-a17"
            clone-depth="1" />
 
   <!-- Vendor blobs: PixelOS fifteen + audioroute-v34 fix + ssr_setup -->
