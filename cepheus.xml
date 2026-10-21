@@ -23,10 +23,11 @@
            revision="oxygenng/uwu-a17"
            clone-depth="1" />
 
+  <!-- sm8150-common carries the erofs switch that makes the super group fit -->
   <project path="device/xiaomi/sm8150-common"
-           name="device_xiaomi_sm8150-common"
-           remote="jokerlee"
-           revision="17.0"
+           name="android_device_xiaomi_sm8150-common"
+           remote="oxygenng"
+           revision="oxygenng/uwu-a17"
            clone-depth="1" />
 
   <!-- Hardware: JoK3rLeE's cnb-cepheus branch -->
