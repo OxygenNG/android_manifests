@@ -2,54 +2,65 @@
 <!--
     Xiaomi Mi 9 (cepheus) — uwuAOSP 17.0 (Android 17)
 
-    Device tree, vendor blobs, and two upstream fixes are carried as
-    OxygenNG forks with the port work applied. See each repo's commit
-    messages for details.
+    Device tree and blobs follow JoK3rLeE's 17.0 set, which is the tree
+    actually used for Android 17 on this device. The earlier attempt used
+    PixelOS's sixteen (Android 16) tree; its BoardConfig asked for
+    Image-dtb while this kernel only produces a gzipped Image, so
+    mkbootimg was handed a 6-byte "empty" placeholder as the DTB and the
+    bootloader dropped to fastboot.
 
-    Build steps are documented in OxygenNG/android_manifests README.
-
-    Note: uwuAOSP's built-in "github" remote uses fetch="..", resolving
-    to https://github.com/uwuAOSP/. Projects in other orgs therefore
-    need an absolute-URL remote, as done below.
+    Build steps are documented in the README of this repository.
 -->
 <manifest>
   <remote name="oxygenng" fetch="https://github.com/OxygenNG" />
-  <remote name="lineagegit" fetch="https://github.com/LineageOS" />
   <remote name="jokerlee" fetch="https://github.com/JoK3rLeE" />
-  <remote name="oxygenng-kernel" fetch="https://github.com/OxygenNG" />
+  <remote name="evox" fetch="https://github.com/Evolution-X-Devices" />
 
-  <!-- Device tree: PixelOS sixteen + uwuAOSP port -->
+  <!-- Device tree: JoK3rLeE 17.0 + uwuAOSP product makefile -->
   <project path="device/xiaomi/cepheus"
            name="android_device_xiaomi_cepheus-uwu"
            remote="oxygenng"
            revision="oxygenng/uwu-a17"
            clone-depth="1" />
 
-  <!-- hardware/xiaomi is not in uwuAOSP's manifest, cepheus needs it -->
-  <project path="hardware/xiaomi"
-           name="android_hardware_xiaomi"
-           remote="lineagegit"
-           revision="lineage-24.0"
+  <project path="device/xiaomi/sm8150-common"
+           name="device_xiaomi_sm8150-common"
+           remote="jokerlee"
+           revision="17.0"
            clone-depth="1" />
 
-  <!-- Kernel: JoK3rLeE 17.0-stable (BPF 5.10 backport, verified booting) -->
+  <!-- Hardware: JoK3rLeE's cnb-cepheus branch -->
+  <project path="hardware/xiaomi"
+           name="hardware_xiaomi"
+           remote="jokerlee"
+           revision="cnb-cepheus"
+           clone-depth="1" />
+
+  <!-- Kernel: JoK3rLeE 17.0-stable, carries the BPF 5.10 backport -->
   <project path="kernel/xiaomi/sm8150"
            name="android_kernel_xiaomi_sm8150"
-           remote="oxygenng-kernel"
-           revision="oxygenng/uwu-a17"
-           clone-depth="1" />
-
-  <!-- Vendor blobs: PixelOS fifteen + audioroute-v34 fix + ssr_setup -->
-  <project path="vendor/xiaomi/cepheus"
-           name="vendor_xiaomi_cepheus"
            remote="oxygenng"
            revision="oxygenng/uwu-a17"
            clone-depth="1" />
 
+  <!-- Blobs: JoK3rLeE cepheus + Evolution-X sm8150-common -->
+  <project path="vendor/xiaomi/cepheus"
+           name="proprietary_vendor_xiaomi_cepheus"
+           remote="jokerlee"
+           revision="16.0"
+           clone-depth="1" />
+
+  <project path="vendor/xiaomi/sm8150-common"
+           name="vendor_xiaomi_sm8150-common"
+           remote="evox"
+           revision="cnb"
+           clone-depth="1" />
+
   <!--
-    Upstream fixes. uwuAOSP prunes perf-setup-sh but still requires it
-    on eng builds, and its DTBO rule calls a make target the Qualcomm
-    4.14 kernel does not have. Both are patched in these forks.
+    Upstream fixes for uwuAOSP itself: perf-setup-sh is pruned but still
+    required on eng builds, the DTBO rule calls a make target the
+    Qualcomm 4.14 kernel lacks, and the OTA VINTF check cannot pass on a
+    device that shipped with Android 9.
   -->
   <remove-project name="platform/build" />
   <project path="build/make"
