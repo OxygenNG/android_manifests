@@ -57,29 +57,10 @@
            clone-depth="1" />
 
   <!--
-    Upstream fixes for uwuAOSP itself: perf-setup-sh is pruned but still
-    required on eng builds, the DTBO rule calls a make target the
-    Qualcomm 4.14 kernel lacks, and the OTA VINTF check cannot pass on a
-    device that shipped with Android 9.
+    build/make and vendor/uwu carry uwuAOSP fixes (perf-setup-sh, DTBO
+    rule, OTA VINTF check). They are applied directly after sync because
+    repo cannot replace projects declared by the main manifest from a
+    local manifest.
   -->
-  <remove-project name="platform/build" />
-  <project path="build/make"
-           name="platform_build_make"
-           remote="oxygenng"
-           revision="oxygenng/uwu-a17"
-           clone-depth="1">
-    <linkfile src="CleanSpec.mk" dest="build/CleanSpec.mk" />
-    <linkfile src="buildspec.mk.default" dest="build/buildspec.mk.default" />
-    <linkfile src="core" dest="build/core" />
-    <linkfile src="envsetup.sh" dest="build/envsetup.sh" />
-    <linkfile src="target" dest="build/target" />
-    <linkfile src="tools" dest="build/tools" />
-  </project>
 
-  <remove-project name="platform_vendor_uwu" />
-  <project path="vendor/uwu"
-           name="platform_vendor_uwu"
-           remote="oxygenng"
-           revision="oxygenng/uwu-a17"
-           clone-depth="1" />
 </manifest>
